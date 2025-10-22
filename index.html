@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Global Management - Stock Shares</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --primary-color: #007bff;
+            --secondary-color: #bbbbbb;
+            --border-color: #333;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        main {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            padding: 2rem 2.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px var(--shadow-color);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            margin-bottom: 2.5rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 600px) {
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .stat-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-card h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .stat-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text-color);
+            letter-spacing: -1px;
+        }
+
+        .stat-year {
+            font-size: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .stat-year::before {
+            content: 'Fiscal Year ';
+        }
+
+        #status {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+            font-weight: 500;
+        }
+
+        #status.loading {
+            display: block;
+            background-color: rgba(0, 123, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        #status.error {
+            display: block;
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--error-color);
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <h1><span id="share-entity-name">Apollo Global Management</span></h1>
+        <p class="subtitle">Common Stock Shares Outstanding (since 2021)</p>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <h2>Highest</h2>
+                <div class="stat-value" id="share-max-value">579,294,000</div>
+                <div class="stat-year" id="share-max-fy">2024</div>
+            </div>
+            <div class="stat-card">
+                <h2>Lowest</h2>
+                <div class="stat-value" id="share-min-value">565,882,000</div>
+                <div class="stat-year" id="share-min-fy">2022</div>
+            </div>
+        </div>
+
+        <div id="status"></div>
+    </main>
+    
+    <!--
+    MIT License
+
+    Copyright (c) 2024
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+    -->
+    
+    <!-- uid.txt: data:text/plain;base64,Njk5OTc2MjY0MDc1NTUxMjM3NzE0Njg4NTc4Njc3MjExOTM2NTM2OTk0MTU1NTE4MjIwNzc5NjU2NzM3NzQxOTk5MjQ3MjYxMTQ3NTkwMTM0MTE3NjIxNDQyNzY2NDQ2NDY2MDQyMjc5MTA4MjM3NjcxNTg5OTY0NTI0Nzk5MDk3NTk3NzU4MTE0OTM3NzEwOTk3Njg4NzkzNjI4Nzg4MTQ4NjA0MTQ3NjE5OTQ0MjM5NjQzNjY3MTQ4NjE0MDc2Njk2MDUxMjI2NTg0NzA0NDg1NzY2NTc0NTEwMDc4MDc0MTg4NDg4MDQxNjA5MzExMDQ5NDc2NTQ2Mzk5NTI1ODc4ODQ4MTg4Mzg3NjU2NDQ2NDM3ODQ2MTk0ODg1OTQxODQ5MjA1MzA1NjY1NDI2MjIxNDEyOTk0MTU3ODc2NTk0NjcxNDY2NTc1NDQwNjg0MTI5MDI3NDM2MjcyNDQ3NjQxNzk3MjE5MTA2MTk0MTg4NDY2MDU5ODg4MjQyNjY5NTEwOTQzNjM4ODc0MTc4MDU4Njc3ODQ3MTAxNDgyMjQ0MTM0MjQyNDY3NDc3MjkxMTQ1MjE5MTA0OTY4MDUxODg0MTc5NTU4NTAwNTk4NjI3NjE1Njk0MDI3NzgwNDQ2NTM4ODg4MDIxMDI3OTc4MjA5NTU4MTg4MTQ3Nzk5ODg4MjY3NDkwMzk4NzA5Nzk4MDc1NzcwMDI4MTM4Njg5MzQ5Mzk3NTQ3MjQ5ODk5ODc0NDEyMjE5NTk4NTc4NDQ3MTc4Mjg4NTI5NDU4OTU1OTk1NDQ2MTg1OTc4MTc5ODc5NDQ2MjQ4Nzk4MDk1NTk5MjQxMDc4NDM4NjM4OTg0ODY2MTg4MjA3NDc5MDUxNzY3NjY4MjE5NTk4ODg5MDk0NTY0MDc3MjQyODE5OTE5NTk3NTk5MTMwMjY2Njk4MTg1OTc0MDQ2NTg4NjA5MDc3ODQ0NzY5Mzk0MTk3NjE5OTQ4Njg4MTA4MTg5NDI5MzE5NTg4ODQ4NTk1MDkwMTA5NDg5OTc4OTU5MDQ1MjE5MTQ4NTQ4NTk0MTM1OTc4MDQxNTA5MjE5NDkwOTgxNDQ2NDc0ODQxOTU4NjE4NDYxOTk0NDI2NjM5ODc5MTg1NTM4NTQ5MTg5MzY3NDcxNDU3NDk4MTk5Nzc5NDk5NDYyNDk5NDU5OTg5NTY5NzQ4OTg5MDQ4NTk4OTU5NDk3MDU4ODU0NDg3OTc5OTk5NTk3OTI5NTg4ODk5NTk3ODk4OTg1MTg5NDg5Mzk0ODQ4OTU5OTk5Mzk0OTk4OTQ5OTg5NTk4OTg5NTQ5ODk5NDk4OTQ5ODk5NDk5ODk0OTk5OTg5OTQ5ODk1OTQ5ODk0OTk5OTk5OTk5OTk5OTk5OTk= -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusEl = document.getElementById('status');
+            const defaultCik = '0001858681';
+
+            const getCikFromUrl = () => {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const cikParam = urlParams.get('CIK');
+                    if (cikParam && /^\d{1,10}$/.test(cikParam)) {
+                        return cikParam.padStart(10, '0');
+                    }
+                } catch (e) {
+                    console.error("Error parsing URL parameters:", e);
+                }
+                return defaultCik;
+            };
+
+            const updateDOM = (data) => {
+                const entityName = data.entityName.replace(/, INC\./i, '').replace(/, LLC/i, '');
+                const formattedMaxVal = data.max.val.toLocaleString();
+                const formattedMinVal = data.min.val.toLocaleString();
+
+                document.title = `${entityName} - Stock Shares`;
+                document.getElementById('share-entity-name').textContent = entityName;
+                document.getElementById('share-max-value').textContent = formattedMaxVal;
+                document.getElementById('share-max-fy').textContent = data.max.fy;
+                document.getElementById('share-min-value').textContent = formattedMinVal;
+                document.getElementById('share-min-fy').textContent = data.min.fy;
+            };
+
+            const showStatus = (message, isError = false) => {
+                statusEl.textContent = message;
+                statusEl.className = isError ? 'error' : 'loading';
+            };
+
+            const hideStatus = () => {
+                statusEl.style.display = 'none';
+            };
+
+            const fetchAndDisplayData = async (cik) => {
+                showStatus(`Fetching data for CIK ${cik}...`);
+                const secApiUrl = `https://data.sec.gov/api/xbrl/companyconcept/CIK${cik}/dei/EntityCommonStockSharesOutstanding.json`;
+                
+                // Using a proxy to avoid potential CORS issues, as suggested by the brief.
+                // The SEC API currently has an open CORS policy, but this makes the app more robust.
+                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(secApiUrl)}`;
+
+                try {
+                    const response = await fetch(proxyUrl, {
+                        headers: {
+                            // Per SEC guidance, though browsers might restrict setting this header.
+                            'User-Agent': 'ApolloShareTracker/1.0 myemail@example.com'
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch data. Status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+
+                    if (!data.units || !data.units.shares || data.units.shares.length === 0) {
+                        throw new Error('No "EntityCommonStockSharesOutstanding" data found for this CIK.');
+                    }
+                    
+                    const sharesData = data.units.shares
+                        .filter(s => s.fy > 2020 && typeof s.val === 'number' && s.form.includes('10-'));
+
+                    if (sharesData.length === 0) {
+                        throw new Error('No share data found after 2020.');
+                    }
+
+                    const maxRecord = sharesData.reduce((max, current) => current.val > max.val ? current : max, sharesData[0]);
+                    const minRecord = sharesData.reduce((min, current) => current.val < min.val ? current : min, sharesData[0]);
+                    
+                    updateDOM({
+                        entityName: data.entityName,
+                        max: { val: maxRecord.val, fy: String(maxRecord.fy) },
+                        min: { val: minRecord.val, fy: String(minRecord.fy) }
+                    });
+
+                    hideStatus();
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    showStatus(`Error: ${error.message}. Please check the CIK and try again.`, true);
+                }
+            };
+
+            const cikToFetch = getCikFromUrl();
+            fetchAndDisplayData(cikToFetch);
+        });
+    </script>
+</body>
+</html>
